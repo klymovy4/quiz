@@ -4,6 +4,8 @@ import { Route, NavLink } from 'react-router-dom'
 import About from './About'
 import Cars from './Cars'
 import "./css.css"
+import CarDetail from "./CarDetail"
+import Switch from "react-switch";
 
 class App extends Component {
   render() {
@@ -31,10 +33,12 @@ class App extends Component {
         <hr />
 
         {/*localhost:3000*/}
-        <Route path="/" exact render={() => <h1 className={classes.h1} >Home Page</h1>} />
-        <Route path="/about" component={About} />
-        <Route path="/cars" component={Cars} />
-
+        <Switch>
+          <Route path="/" exact render={() => <h1 className={classes.h1} >Home Page</h1>} />
+          <Route path="/about" component={About} />
+          <Route path="/cars/:name" component={CarDetail} />
+          <Route path="/cars" component={Cars} />
+        </Switch>
       </div>
     );
   }

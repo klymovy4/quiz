@@ -1,23 +1,37 @@
 
 import React, { useState } from 'react';
-import classes from "./App.module.css"
+import classes from "./App.module.css";
+import { withRouter } from "react-router-dom"
+import Car from "./Car"
 
 const data = [
-    { name: "ford" }, { name: "Mers" }, { name: "Audi" }
+    { name: "ford", year: 1987 }, { name: "Mers", year: 1987 }, { name: "Audi", year: 1987 }
 ]
 
-function Cars() {
+function Cars(props) {
     const [cars, setCars] = useState(data)
+    // console.log(props);
+    const goTohomePage = () => {
+        props.history.push({
+            pathname: "/"
+        })
+
+    }
+
     return (
         <div className={classes.rout}>
             <ul className={classes.ul}>
+                <button onClick={goTohomePage}>Home Page</button>
 
                 {cars.map((el, index) => {
+                    // console.log(props)
                     return (
-                        <div>
-
-                            <li key={index}>{el.name}</li>
-                        </div>
+                        <Car
+                            key={index}
+                            name={el.name}
+                            year={el.year}
+                        >
+                        </Car>
                     )
                 })}
             </ul>
@@ -25,4 +39,4 @@ function Cars() {
     )
 }
 
-export default Cars
+export default withRouter(Cars)
