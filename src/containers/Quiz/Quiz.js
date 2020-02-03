@@ -7,10 +7,10 @@ import FinishQuiz from "../../components/FinishQuiz/FinishQuiz"
 
 class Quiz extends Component {
     state = {
-        results: {}, // {[id]: "success" "error"}
+        results: {},  // {[id]: success error}
         isFinished: false,
         activeQuestion: 0,
-        answerState: null, // {[id]: "success" "error"}
+        answerState: null, // {[id]: error, success}
         quiz: [
             {
                 question: "Whats color sky",
@@ -45,68 +45,53 @@ class Quiz extends Component {
                     { text: "ovica", id: 4 }
                 ]
             },
-            // {
-            //     question: "finish the word 'Metal'",
-            //     rightAnswerId: 3,
-            //     id: 4,
-            //     answers: [
-            //         { text: "lurgiya", id: 1 },
-            //         { text: "ium", id: 2 },
-            //         { text: "lica", id: 3 },
-            //         { text: "ovica", id: 4 }
-            //     ]
-            // },
+
         ]
     }
 
-    onAnswerClickHandler = answerId => {
+    onAnswerClickHandler = (answerId) => {
         if (this.state.answerState) {
-            const key = Object.keys(this.state.answerState)[0];
+            const key = Object.keys(this.state.answerState)[0]
             if (this.state.answerState[key] === "success") {
                 return
             }
         }
         const question = this.state.quiz[this.state.activeQuestion];
         const results = this.state.results;
-        // console.log("answerId", answerId, question);
-
         if (question.rightAnswerId === answerId) {
-            debugger;
             if (!results[question.id]) {
                 results[question.id] = "success"
             }
 
             this.setState({
                 answerState: { [answerId]: "success" },
-                results // можно продублировать, но совподает ключ значение
+                results
             })
-
             const timeout = window.setTimeout(() => {
                 if (this.isQuizFinished()) {
-                    console.log("finished");
                     this.setState({
                         isFinished: true
                     })
+
                 } else {
+
                     this.setState({
                         activeQuestion: this.state.activeQuestion + 1,
                         answerState: null
-                    });
+                    })
                 }
 
-                window.clearTimeout(timeout);
+                window.clearTimeout(timeout)
             }, 1000)
 
-
+            console.log(this.state.activeQuestion)
         } else {
             results[question.id] = "error"
             this.setState({
                 answerState: { [answerId]: "error" },
                 results: results
-            })
+            });
         }
-        // 051 Отображение состояния ответа
-
     }
     isQuizFinished() {
         return this.state.activeQuestion + 1 === this.state.quiz.length;
@@ -116,8 +101,8 @@ class Quiz extends Component {
         this.setState({
             activeQuestion: 0,
             answerState: null,
+            results: {},
             isFinished: false,
-            results: {}
         })
     }
 
@@ -125,7 +110,7 @@ class Quiz extends Component {
         return (
             <div className={classes.quiz}>
                 <div className={classes.wrapper}>
-                    <h1>Quiz</h1>
+                    <h2>Quiz</h2>
                     {
                         this.state.isFinished
                             ? <FinishQuiz
@@ -144,7 +129,6 @@ class Quiz extends Component {
                     }
 
                 </div>
-
             </div>
         )
     }

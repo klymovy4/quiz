@@ -7,6 +7,8 @@ function App() {
 
     <Layout>
       <Quiz />
+
+     
     </Layout>
   );
 }
