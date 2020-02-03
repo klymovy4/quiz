@@ -1,0 +1,4 @@
+a.active, .w-active {
+    font-weight: bold;
+    color: red;
+}
