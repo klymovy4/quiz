@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom"
 import axios from "../../Axios/axios-quiz"
 import Loader from "../../components/Ui/Loader/Loader"
 
-export default class QuizCreator extends Component {
+export default class QuizList extends Component {
 
     state = {
         quizes: [],
@@ -17,7 +17,10 @@ export default class QuizCreator extends Component {
                 <li
                     key={quiz.id}
                 >
-                    <NavLink to={"/quiz/" + quiz.id}>{quiz.name}</NavLink>
+                    <NavLink
+                        to={"/quiz/" + quiz.id}>
+                        {quiz.name}
+                    </NavLink>
                 </li>
             )
         })
@@ -33,7 +36,7 @@ export default class QuizCreator extends Component {
     async componentDidMount() {
         try {
             const response = await axios.get("/quizes.json")
-            // console.log(response.data);
+            console.log(response.data);
             const quizes = []
 
             Object.keys(response.data).forEach((key, index) => {
@@ -44,17 +47,15 @@ export default class QuizCreator extends Component {
             })
 
             this.setState({
-                quizes, loading: false
+                quizes, 
+                loading: false
             })
         } catch (e) {
             console.log(e);
-
         }
     }
 
-
     render() {
-
         return (
             <div className={classes.quizList}>
                 <div>

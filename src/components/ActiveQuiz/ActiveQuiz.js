@@ -2,9 +2,6 @@ import React from "react";
 import classes from "./activeQuiz.module.css";
 import AnswerList from "./answerList/AnswerList";
 
-
-
-
 const ActiveQuiz = props => {
     return (
         <div className={classes.activeQuiz}>

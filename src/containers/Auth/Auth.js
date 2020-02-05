@@ -3,6 +3,7 @@ import classes from './Auth.module.css'
 import Button from '../../components/Ui/Button/Button'
 import Input from '../../components/Ui/Input/Input'
 import is from "is_js"
+import axios from "axios"
 // function validateEmail(email) {
 //     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 //     return re.test(String(email).toLowerCase());
@@ -40,12 +41,36 @@ export default class Auth extends Component {
         }
     }
 
-    loginHandler = () => {
+    loginHandler = async () => {
+        const authData = {
+            email: this.state.formControls.email.value,
+            password: this.state.formControls.password.value,
+            returnSecureToken: true
+        }
+        try {
+            const response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBLdnb8PzPWxh4AImpBEil2Ty2pqirw4_w", authData)
+            console.log(response.data);
 
+        } catch (e) {
+            console.log(e);
+
+        }
     }
 
-    registerHandler = () => {
+    registerHandler = async () => {
+        const authData = {
+            email: this.state.formControls.email.value,
+            password: this.state.formControls.password.value,
+            returnSecureToken: true
+        }
+        try {
+            const response = await axios.post("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBLdnb8PzPWxh4AImpBEil2Ty2pqirw4_w", authData)
+            console.log(response.data);
 
+        } catch (e) {
+            console.log(e);
+
+        }
     }
 
     submitHandler = event => {
@@ -140,7 +165,7 @@ export default class Auth extends Component {
                         </Button>
                         <Button
                             type="primary"
-                            onClick={this.registrHandler}
+                            onClick={this.registerHandler}
                             disabled={!this.state.isFormValid}
                         >
                             Зарегистрироваться
