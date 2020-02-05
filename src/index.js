@@ -5,8 +5,9 @@ import App from './App';
 import { BrowserRouter } from "react-router-dom"
 import * as serviceWorker from './serviceWorker'
 import AppRedux from './AppRedux';
-import { createStore, applyMiddleware } from "redux"
+import { createStore, applyMiddleware, compose } from "redux"
 import { Provider } from "react-redux"
+import reduxThunk from "redux-thunk"
 import rootReducer from "./Redux/rootReducer"
 
 // function loagerMiddleWare(store) {
@@ -20,17 +21,23 @@ import rootReducer from "./Redux/rootReducer"
 //     }
 // }
 
+const composeEnhancers =
+    typeof window === 'object' &&
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+            // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+        }) : compose;
+
 const loagerMiddleWare = store => next => action => {
     const result = next(action)
     console.log("MiddleWare", store.getState());
     return result
 }
 
-
-
-
-
-const store = createStore(rootReducer, applyMiddleware(loagerMiddleWare))
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(
+    loagerMiddleWare,
+    reduxThunk
+)))
 const app = (
     <Provider store={store}>
         <AppRedux />
