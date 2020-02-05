@@ -1,0 +1,15 @@
+.app {
+    text-align: center;
+    margin: 10px auto;
+    width: 20rem;
+}
+.buttons {
+    display: flex;
+    justify-content: space-around;
+}
+.buttons button {
+    padding: 10px;
+    border: none;
+    background: rgba(66, 104, 86, 0.473);
+    /* box-shadow: ; */
+}
