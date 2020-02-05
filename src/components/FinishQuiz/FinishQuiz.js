@@ -34,14 +34,6 @@ const FinishQuiz = props => {
                         </li>
                     )
                 })}
-
-
-
-
-
-
-
-
             </ul>
             <p> {successCount} из {props.quiz.length}</p>
             <div>

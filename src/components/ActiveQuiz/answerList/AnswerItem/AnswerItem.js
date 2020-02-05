@@ -3,9 +3,7 @@ import classes from "./answerItem.module.css"
 
 
 const AnswerItem = (props) => {
-    const cls = [
-        classes.answerItem,
-    ]
+    const cls = [classes.answerItem]
     if (props.state) {
         cls.push(classes[props.state])
     }
@@ -20,4 +18,4 @@ const AnswerItem = (props) => {
     )
 }
 
-export default AnswerItem;
+export default AnswerItem
